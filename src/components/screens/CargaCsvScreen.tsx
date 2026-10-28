@@ -2,6 +2,7 @@
 import { ScadaShell } from "./ScadaShell";
 import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
+import { CsvReview } from "./CsvReview";
 
 export function CargaCsvScreen() {
   useEffect(() => {
@@ -13,15 +14,6 @@ export function CargaCsvScreen() {
     const dropZone = document.getElementById('dropZone');
     const fileInput = document.getElementById('fileInput');
 
-    if (btnInject && toast) {
-      btnInject.addEventListener('click', () => {
-        toast.classList.remove('translate-y-24', 'opacity-0');
-        setTimeout(() => {
-          toast.classList.add('translate-y-24', 'opacity-0');
-        }, 4000);
-      });
-    }
-
     if (btnSimulate) {
       btnSimulate.addEventListener('click', () => {
         btnSimulate.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span> Simulando comprobación...';
@@ -31,29 +23,6 @@ export function CargaCsvScreen() {
       });
     }
 
-    if (dropZone && fileInput) {
-      ['dragenter', 'dragover'].forEach(eventName => {
-        dropZone.addEventListener(eventName, (e) => {
-          e.preventDefault();
-          dropZone.classList.add('bg-surface-container-high');
-        }, false);
-      });
-
-      ['dragleave', 'drop'].forEach(eventName => {
-        dropZone.addEventListener(eventName, (e) => {
-          e.preventDefault();
-          dropZone.classList.remove('bg-surface-container-high');
-        }, false);
-      });
-
-      dropZone.addEventListener('drop', (e) => {
-        const dt = e.dataTransfer;
-        const files = dt.files;
-        if (files && files.length > 0) {
-          console.log('Archivo capturado:', files[0].name);
-        }
-      });
-    }
   })();
 
   }, []);
@@ -227,43 +196,7 @@ export function CargaCsvScreen() {
 <span className="font-label-mono text-caption text-on-surface-variant">o arrastra sobre el recuadro</span>
 </div>
 </div>
-{/* File In-Review Card */}
-<div className="mt-4 p-4 rounded-xl bg-surface-container-lowest shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-<div className="flex items-center gap-3">
-<div className="w-10 h-10 rounded-lg bg-surface-container text-primary flex items-center justify-center shrink-0">
-<span className="material-symbols-outlined text-[22px]">description</span>
-</div>
-<div >
-<div className="flex items-center gap-2">
-<span className="font-headline-sm text-body-md font-bold text-on-surface truncate max-w-xs">
-                  LAB_FISICOQUIMICO_PLANTA_NORTE_SEMANA_14.csv
-                </span>
-<span className="px-2 py-0.5 rounded-full font-label-mono text-caption font-bold bg-surface-container text-primary">
-                  2.4 MB
-                </span>
-</div>
-<div className="flex items-center gap-3 font-label-mono text-caption text-on-surface-variant mt-0.5">
-<span className="flex items-center gap-1">
-<span className="material-symbols-outlined text-[13px]">table_rows</span>
-                  1,440 registros
-                </span>
-<span >•</span>
-<span className="text-tertiary-container font-semibold flex items-center gap-1">
-<span className="material-symbols-outlined text-[13px]">check_circle</span>
-                  Listo para mapeo
-                </span>
-</div>
-</div>
-</div>
-<div className="flex items-center gap-2 self-end sm:self-center">
-<button className="p-1.5 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors" title="Previsualizar Raw">
-<span className="material-symbols-outlined text-[18px]">visibility</span>
-</button>
-<button className="p-1.5 rounded-lg text-on-surface-variant hover:text-error hover:bg-surface-container transition-colors" title="Descartar archivo">
-<span className="material-symbols-outlined text-[18px]">delete</span>
-</button>
-</div>
-</div>
+<CsvReview />
 </div>
 {/* Intelligent Variable Mapping Assistant */}
 <div className="bg-surface-container-lowest rounded-xl p-6 shadow-sm">
