@@ -374,7 +374,11 @@ body { padding-top: var(--demo-status-height); }
 .scada-import main .text-3xl { white-space: nowrap; }
 .scada-import main button { min-height: 40px; line-height: 1.4; }
 .scada-import main [class*="text-scada-ink-35"] { color: var(--color-scada-ink-34); }
+.scada-root main .flex.items-center.justify-between { flex-wrap: wrap; gap: 8px; }
+.scada-root main .grid > * { min-width: 0; }
+.scada-root main .shrink-0 { max-width: 100%; }
 @media (max-width: 767px) {
+  :root { --demo-status-height: 52px; }
   .scada-import aside { top: auto; height: auto; }
   .scada-import main .flex.items-center { flex-wrap: wrap; }
   .scada-import main .grid-cols-3 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
