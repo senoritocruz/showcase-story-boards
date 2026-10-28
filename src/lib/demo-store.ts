@@ -60,11 +60,18 @@ export const demo = {
     demo.log("alerta", `${a.title}: ${status}`, detail);
   },
   reopenAlert(id: string) { set({ ...state, alerts: state.alerts.map((x) => (x.id === id ? { ...x, status: "abierta" } : x)) }); },
+  /** Records an approved dose and closes the PAC alert; returns an undo function. */
   approveDose(ppm: number, detail: string) {
     const previous = state.approvedDose;
+    const pacWasOpen = state.alerts.find((a) => a.id === "pac")?.status !== "resuelta";
     set({ ...state, approvedDose: ppm });
     const logId = demo.log("consigna", `Consigna PAC ${ppm} ppm aprobada`, detail);
-    return () => { set({ ...state, approvedDose: previous }); demo.removeLog(logId); };
+    if (pacWasOpen) demo.setAlert("pac", "resuelta", `Cerrada por consigna PAC de ${ppm} ppm (demo).`);
+    return () => {
+      const alertLogs = pacWasOpen ? state.log.filter((e) => e.kind === "alerta" && e.title.startsWith("Sobredosificación")).map((e) => e.id).slice(0, 1) : [];
+      set({ ...state, approvedDose: previous, log: state.log.filter((e) => e.id !== logId && !alertLogs.includes(e.id)) });
+      if (pacWasOpen) demo.reopenAlert("pac");
+    };
   },
   setPlant(plant: string) { set({ ...state, plant }); demo.log("sistema", `Planta seleccionada: ${plant}`, "Cambio de vista en la demostración."); },
   setShift(shift: string) { set({ ...state, shift }); },
