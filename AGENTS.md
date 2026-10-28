@@ -11,3 +11,4 @@
 
 - Imported SCADA screens use a shared shell and React-managed demonstration state; keep simulated commands distinct from real plant connections.
 - Map imported HTML colors to semantic global CSS tokens so the supplied appearance remains theme-managed.
+- PAC projections come from a single pure, tested illustrative model; do not present its outputs as engineering validation or measured plant savings.

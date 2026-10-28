@@ -24,11 +24,11 @@ export function ScadaShell({ children }: { children: ReactNode }) { return <div 
 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-scada-ink-14"></span>
 </span>
 <div >
-<div className="font-label-mono text-[11px] text-scada-ink-10 font-semibold leading-tight">TELEMETRÍA LINK</div>
-<div className="font-label-mono text-[9px] text-scada-ink-15">Modbus/TCP • 42ms</div>
+<div className="font-label-mono text-[11px] text-scada-ink-10 font-semibold leading-tight">Datos de ejemplo</div>
+<div className="font-label-mono text-[9px] text-scada-ink-15">Sin conexión a planta</div>
 </div>
 </div>
-<span className="font-label-mono text-[11px] font-bold text-scada-ink-14 bg-scada-ink-16/60 border border-scada-ink-17/40 px-2 py-0.5 rounded">ONLINE</span>
+<span className="font-label-mono text-[11px] font-bold text-scada-ink-14 bg-scada-ink-16/60 border border-scada-ink-17/40 px-2 py-0.5 rounded">DEMO</span>
 </div>
 </div>
 
@@ -88,7 +88,7 @@ export function ScadaShell({ children }: { children: ReactNode }) { return <div 
 <span className="material-symbols-outlined text-[13px] text-scada-ink-15">memory</span>
         Gateway SCADA 3.4
       </span>
-<span className="text-scada-ink-14 font-bold">● SYNC 100%</span>
+<span className="text-scada-ink-14 font-bold">● DEMO</span>
 </div>
 </div>
 </aside><div className="pl-72"><header className="fixed top-0 left-72 right-0 min-h-[68px] py-3.5 px-8 bg-scada-ink-10/95 backdrop-blur-md border-b border-scada-ink-26 shadow-xs z-40 flex items-center justify-between transition-all">
@@ -118,7 +118,7 @@ export function ScadaShell({ children }: { children: ReactNode }) { return <div 
 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-scada-ink-14 opacity-75"></span>
 <span className="relative inline-flex rounded-full h-2 w-2 bg-scada-ink-17"></span>
 </span>
-<span className="font-label-mono text-xs font-bold tracking-normal text-scada-ink-39">NOM-001: 99.4% Cumple</span>
+<span className="font-label-mono text-xs font-bold tracking-normal text-scada-ink-39">NOM-001: 99.4% (ejemplo)</span>
 </div>
 
 <div className="relative p-2 rounded-lg bg-scada-ink-30 bg-scada-ink-31 border border-scada-ink-26 text-scada-ink-34  transition-colors">
