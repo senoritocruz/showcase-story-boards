@@ -1,6 +1,14 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+import { CostosScreen } from "@/components/screens/CostosScreen";
 
-// Design for this screen was not accessible; send users to the bitácora for now.
 export const Route = createFileRoute("/costos")({
-  beforeLoad: () => { throw redirect({ to: "/bitacora" }); },
+  head: () => ({ meta: [
+    { title: "Tablero de Costos y KPIs | AquaSense AI" },
+    { name: "description", content: "Centro de mando de costos operativos y KPIs del tratamiento de agua." },
+    { property: "og:title", content: "Tablero de Costos y KPIs | AquaSense AI" },
+    { property: "og:description", content: "Centro de mando de costos operativos y KPIs del tratamiento de agua." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
+  component: CostosScreen,
 });

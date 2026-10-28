@@ -8,6 +8,8 @@ export const Route = createFileRoute("/carga-csv")({
       { name: "description", content: "Carga y mapeo inteligente de datos de planta en CSV." },
       { property: "og:title", content: "Carga de Datos CSV | AquaSense AI" },
       { property: "og:description", content: "Carga y mapeo inteligente de datos de planta en CSV." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: CargaCsvScreen,

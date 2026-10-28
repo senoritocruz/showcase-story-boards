@@ -204,3 +204,140 @@
     color: var(--color-foreground);
   }
 }
+
+@theme {
+  --color-scada-ink-1: #0b192c;
+  --color-scada-ink-2: #1a2e4a;
+  --color-scada-ink-3: var(--color-slate-300);
+  --color-scada-ink-4: #081220;
+  --color-scada-ink-5: #1b2b44;
+  --color-scada-ink-6: var(--color-cyan-400);
+  --color-scada-ink-7: var(--color-blue-500);
+  --color-scada-ink-8: var(--color-indigo-600);
+  --color-scada-ink-9: var(--color-cyan-500);
+  --color-scada-ink-10: oklch(1 0 0);
+  --color-scada-ink-11: var(--color-slate-950);
+  --color-scada-ink-12: var(--color-cyan-300);
+  --color-scada-ink-13: #11233d;
+  --color-scada-ink-14: var(--color-emerald-400);
+  --color-scada-ink-15: var(--color-slate-400);
+  --color-scada-ink-16: var(--color-emerald-950);
+  --color-scada-ink-17: var(--color-emerald-500);
+  --color-scada-ink-18: var(--color-cyan-600);
+  --color-scada-ink-19: var(--color-blue-600);
+  --color-scada-ink-20: var(--color-cyan-200);
+  --color-scada-ink-21: #132742;
+  --color-scada-ink-22: var(--color-amber-400);
+  --color-scada-ink-23: var(--color-rose-500);
+  --color-scada-ink-24: var(--color-rose-300);
+  --color-scada-ink-25: #1d3353;
+  --color-scada-ink-26: var(--color-slate-200);
+  --color-scada-ink-27: #162740;
+  --color-scada-ink-28: #233f66;
+  --color-scada-ink-29: #1a2d48;
+  --color-scada-ink-30: var(--color-slate-50);
+  --color-scada-ink-31: var(--color-slate-100);
+  --color-scada-ink-32: var(--color-slate-800);
+  --color-scada-ink-33: var(--color-slate-900);
+  --color-scada-ink-34: var(--color-slate-600);
+  --color-scada-ink-35: var(--color-slate-500);
+  --color-scada-ink-36: var(--color-emerald-50);
+  --color-scada-ink-37: var(--color-emerald-200);
+  --color-scada-ink-38: var(--color-emerald-900);
+  --color-scada-ink-39: var(--color-emerald-800);
+  --color-scada-ink-40: var(--color-rose-600);
+  --color-scada-ink-41: var(--color-blue-700);
+  --color-scada-ink-42: var(--color-emerald-300);
+  --color-scada-ink-43: var(--color-emerald-600);
+  --color-scada-ink-44: var(--color-amber-500);
+  --color-scada-ink-45: var(--color-amber-100);
+  --color-scada-ink-46: var(--color-amber-900);
+  --color-scada-ink-47: var(--color-amber-300);
+  --color-scada-ink-48: #f1f5f9;
+  --color-scada-ink-49: #10b981;
+  --color-scada-ink-50: #f59e0b;
+  --color-scada-ink-51: var(--color-emerald-700);
+  --color-scada-ink-52: var(--color-rose-50);
+  --color-scada-ink-53: var(--color-rose-200);
+  --color-scada-ink-54: var(--color-emerald-100);
+  --color-scada-ink-55: var(--color-teal-700);
+  --color-scada-ink-56: var(--color-cyan-900);
+  --color-scada-ink-57: var(--color-teal-900);
+  --color-scada-ink-58: var(--color-teal-100);
+  --color-scada-ink-59: var(--color-cyan-50);
+  --color-scada-ink-60: #e2e8f0;
+  --color-scada-ink-61: #e11d48;
+  --color-scada-ink-62: #0ea5e9;
+  --color-scada-ink-63: #64748b;
+  --color-scada-ink-64: #818cf8;
+  --color-scada-ink-65: var(--color-rose-400);
+  --color-scada-ink-66: var(--color-rose-950);
+  --color-scada-ink-67: var(--color-rose-700);
+  --color-scada-ink-68: var(--color-rose-900);
+  --color-scada-ink-69: var(--color-rose-800);
+  --color-scada-ink-70: var(--color-sky-50);
+  --color-scada-ink-71: var(--color-sky-200);
+  --color-scada-ink-72: var(--color-sky-500);
+  --color-scada-ink-73: var(--color-sky-800);
+  --color-scada-ink-74: var(--color-indigo-50);
+  --color-scada-ink-75: var(--color-indigo-200);
+  --color-scada-ink-76: var(--color-indigo-500);
+  --color-scada-ink-77: var(--color-indigo-800);
+  --color-scada-ink-78: var(--color-cyan-700);
+  --color-scada-ink-79: var(--color-amber-50);
+  --color-scada-ink-80: var(--color-amber-950);
+  --color-scada-ink-81: var(--color-amber-600);
+  --color-scada-ink-82: var(--color-amber-800);
+  --color-scada-ink-83: var(--color-cyan-950);
+  --color-scada-ink-84: var(--color-amber-700);
+  --color-scada-ink-85: var(--color-blue-50);
+  --color-scada-ink-86: var(--color-slate-700);
+  --color-scada-ink-87: var(--color-sky-300);
+  --color-scada-ink-88: var(--color-sky-700);
+  --color-scada-ink-89: var(--color-sky-100);
+  --color-scada-ink-90: #004d77;
+
+  --text-headline-lg: 1.75rem;
+  --text-headline-md: 1.125rem;
+  --text-headline-sm: 0.875rem;
+  --text-body-md: 0.875rem;
+  --text-body-sm: 0.75rem;
+  --text-caption: 0.75rem;
+  --text-label-mono: 0.6875rem;
+  --text-data-metric-lg: 2rem;
+  --text-data-metric-md: 1.25rem;
+  --text-data-metric-sm: 0.875rem;
+}
+.scada-import { color: var(--color-on-surface); background: var(--color-surface); }
+.scada-import [hidden] { display: none; }
+.scada-import button { height: auto; white-space: normal; }
+.scada-import .scada-nav-link { color: var(--color-outline-variant); }
+.scada-import .scada-nav-link:hover { background: var(--color-inverse-surface); }
+.scada-import .scada-nav-active { background: var(--color-primary-container); color: var(--color-on-primary); border-left: 4px solid var(--color-tertiary-fixed); }
+.scada-import main { overflow-wrap: anywhere; }
+.scada-import main .text-4xl { font-size: 1.75rem; white-space: nowrap; }
+.scada-import main .items-baseline { flex-wrap: wrap; }
+.scada-import main .pointer-events-none.rounded-full { display: none; }
+.scada-import main .flex.items-center.justify-between { gap: 8px; }
+.scada-import main button.bg-tertiary,
+.scada-import main button.bg-primary { color: var(--color-on-primary); }
+.scada-import .scada-nav-link { min-width: 0; gap: 8px; }
+.scada-import .scada-nav-link > div { min-width: 0; }
+.scada-import .scada-nav-link > span { flex-shrink: 0; }
+.scada-import main > div:first-child:not([data-category]) { border-radius: 0; }
+@media (max-width: 1350px) {
+ .scada-import header { flex-wrap: wrap; gap: 10px; position: relative; left: auto; }
+ .scada-import main { padding-top: 28px; padding-left: 24px; padding-right: 24px; }
+ .scada-import header > div { flex-wrap: wrap; }
+}
+@media (max-width: 767px) {
+ .scada-import aside { position: relative; width: 100%; height: auto; }
+ .scada-import aside > div:last-child { display: none; }
+ .scada-import nav { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); }
+ .scada-import nav .scada-nav-link { flex-wrap: wrap; }
+ .scada-import .pl-72 { padding-left: 0; }
+ .scada-import header { padding: 16px; }
+ .scada-import main { padding: 24px 16px; }
+ .scada-import main .shrink-0 { flex-shrink: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .scada-import * { animation: none !important; transition: none !important; } }

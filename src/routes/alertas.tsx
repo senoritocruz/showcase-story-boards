@@ -1,6 +1,14 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+import { AlertasScreen } from "@/components/screens/AlertasScreen";
 
-// Design for this screen was not accessible; send users to the bitácora for now.
 export const Route = createFileRoute("/alertas")({
-  beforeLoad: () => { throw redirect({ to: "/bitacora" }); },
+  head: () => ({ meta: [
+    { title: "Desviaciones y Alertas | AquaSense AI" },
+    { name: "description", content: "Diagnóstico de anomalías, sobrecostos y desviaciones operativas de planta." },
+    { property: "og:title", content: "Desviaciones y Alertas | AquaSense AI" },
+    { property: "og:description", content: "Diagnóstico de anomalías, sobrecostos y desviaciones operativas de planta." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
+  component: AlertasScreen,
 });
