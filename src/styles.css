@@ -358,6 +358,7 @@
 body { padding-top: var(--demo-status-height); }
 .scada-import aside, .scada-root aside { top: var(--demo-status-height); height: calc(100% - var(--demo-status-height)); }
 .scada-import header.fixed, .scada-root header.fixed { top: var(--demo-status-height); }
+@media (max-width: 1350px) { .scada-import header.fixed { top: auto; } }
 :is(.scada-import, .scada-root) main { overflow-wrap: normal; }
 :is(.scada-import, .scada-root) main :is(p, .text-body-md) { font-size: 14px; line-height: 1.6; }
 :is(.scada-import, .scada-root) main :is(.text-xs, .text-caption, .text-label-mono, .text-body-sm, [class*="text-[9px]"], [class*="text-[10px]"], [class*="text-[11px]"]) { font-size: 12px; line-height: 1.5; }
