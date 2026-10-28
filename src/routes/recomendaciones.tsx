@@ -1,6 +1,14 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+import { RecomendacionesScreen } from "@/components/screens/RecomendacionesScreen";
 
-// Design for this screen was not accessible; send users to the bitácora for now.
 export const Route = createFileRoute("/recomendaciones")({
-  beforeLoad: () => { throw redirect({ to: "/bitacora" }); },
+  head: () => ({ meta: [
+    { title: "Recomendaciones de Optimización IA | AquaSense AI" },
+    { name: "description", content: "Simulación de consignas y recomendaciones para optimización química y energética." },
+    { property: "og:title", content: "Recomendaciones de Optimización IA | AquaSense AI" },
+    { property: "og:description", content: "Simulación de consignas y recomendaciones para optimización química y energética." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
+  component: RecomendacionesScreen,
 });
