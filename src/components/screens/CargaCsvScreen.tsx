@@ -676,7 +676,7 @@ export function CargaCsvScreen() {
                 </span>
 </div>
 <span className="px-2 py-0.5 rounded font-label-mono text-caption font-bold bg-tertiary-container text-on-tertiary shrink-0">
-                Sincronizado SCADA
+                Registro de ejemplo
               </span>
 </div>
 <div className="mt-2 flex items-center justify-between font-label-mono text-caption text-on-surface-variant">
@@ -712,7 +712,7 @@ export function CargaCsvScreen() {
                 </span>
 </div>
 <span className="px-2 py-0.5 rounded font-label-mono text-caption font-bold bg-tertiary-container text-on-tertiary shrink-0">
-                Sincronizado SCADA
+                Registro de ejemplo
               </span>
 </div>
 <div className="mt-2 flex items-center justify-between font-label-mono text-caption text-on-surface-variant">
@@ -748,7 +748,7 @@ export function CargaCsvScreen() {
                 </span>
 </div>
 <span className="px-2 py-0.5 rounded font-label-mono text-caption font-bold bg-tertiary-container text-on-tertiary shrink-0">
-                Sincronizado SCADA
+                Registro de ejemplo
               </span>
 </div>
 <div className="mt-2 flex items-center justify-between font-label-mono text-caption text-on-surface-variant">
