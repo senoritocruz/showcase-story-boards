@@ -390,7 +390,6 @@ body { padding-top: var(--demo-status-height); }
 @media (min-width: 768px) and (max-width: 1279px) {
   .scada-import aside { width: 15rem; }
   .scada-import .pl-72 { padding-left: 15rem; }
-  .scada-import header.fixed { left: 15rem; }
   .scada-import nav .scada-nav-link { padding-left: 10px; padding-right: 10px; }
   .scada-import aside .h-20 { padding-left: 16px; padding-right: 16px; }
 }
