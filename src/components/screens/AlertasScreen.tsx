@@ -193,7 +193,7 @@ export function AlertasScreen() {
 <span className="font-data-metric-md text-data-metric-md font-bold text-tertiary">1.8</span>
 <span className="font-caption text-caption text-on-surface-variant">NTU</span>
 </div>
-<span className="font-caption text-[11px] text-tertiary font-medium mt-0.5 block">Límite < 4.0 NTU (Margen OK)</span>
+<span className="font-caption text-[11px] text-tertiary font-medium mt-0.5 block">Límite &lt; 4.0 NTU (Margen OK)</span>
 </div>
 </div>
 

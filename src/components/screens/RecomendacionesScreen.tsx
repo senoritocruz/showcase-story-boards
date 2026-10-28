@@ -182,7 +182,7 @@ export function RecomendacionesScreen() {
 <span className="text-xs text-scada-ink-35 font-label-mono">Turbidez Proyectada</span>
 <div className="flex items-baseline gap-2">
 <span className="text-xl font-bold text-scada-ink-32 font-data-metric-md" id="val-turbidity">{changed ? Math.max(0.9, 4.2 - ppm * 0.12).toFixed(1) : "1.8"} NTU</span>
-<span className="text-xs text-scada-ink-51 font-semibold font-label-mono">(Límite: < 4.0 NTU)</span>
+<span className="text-xs text-scada-ink-51 font-semibold font-label-mono">(Límite: &lt; 4.0 NTU)</span>
 </div>
 </div>
 <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-scada-ink-36 border border-scada-ink-37 text-scada-ink-39 text-xs font-semibold">
@@ -196,7 +196,7 @@ export function RecomendacionesScreen() {
 <span className="text-xs text-scada-ink-35 font-label-mono">DQO Efluente Proyectada</span>
 <div className="flex items-baseline gap-2">
 <span className="text-xl font-bold text-scada-ink-32 font-data-metric-md" id="val-dqo">{changed ? Math.max(40, 70 - ppm * 0.9).toFixed(0) : "48"} mg/L</span>
-<span className="text-xs text-scada-ink-51 font-semibold font-label-mono">(Límite: < 60 mg/L)</span>
+<span className="text-xs text-scada-ink-51 font-semibold font-label-mono">(Límite: &lt; 60 mg/L)</span>
 </div>
 </div>
 <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-scada-ink-36 border border-scada-ink-37 text-scada-ink-39 text-xs font-semibold">

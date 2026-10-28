@@ -107,12 +107,12 @@ export function CostosScreen() {
 <div className="bg-scada-ink-36/80 border border-scada-ink-37 rounded-lg p-2">
 <div className="text-[10px] font-label-mono text-scada-ink-39 uppercase font-bold">DQO Efluente</div>
 <div className="font-data-metric-md text-base font-black text-scada-ink-51">48 <span className="text-[10px] font-normal">mg/L</span></div>
-<div className="text-[9px] font-label-mono text-scada-ink-43 font-semibold">< 60 límite</div>
+<div className="text-[9px] font-label-mono text-scada-ink-43 font-semibold">&lt; 60 límite</div>
 </div>
 <div className="bg-scada-ink-36/80 border border-scada-ink-37 rounded-lg p-2">
 <div className="text-[10px] font-label-mono text-scada-ink-39 uppercase font-bold">Turbidez</div>
 <div className="font-data-metric-md text-base font-black text-scada-ink-51">1.8 <span className="text-[10px] font-normal">NTU</span></div>
-<div className="text-[9px] font-label-mono text-scada-ink-43 font-semibold">< 4.0 límite</div>
+<div className="text-[9px] font-label-mono text-scada-ink-43 font-semibold">&lt; 4.0 límite</div>
 </div>
 </div>
 </div>
