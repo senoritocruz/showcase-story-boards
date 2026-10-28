@@ -1,5 +1,5 @@
-import { ScadaShell } from "./ScadaShell";
 // @ts-nocheck
+import { ScadaShell } from "./ScadaShell";
 import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 
