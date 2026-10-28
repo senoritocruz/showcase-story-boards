@@ -1,4 +1,4 @@
 # Missing screens
-- [ ] Add costs, alerts, and AI recommendations from the uploaded designs.
-- [ ] Connect navigation and demonstration controls.
-- [ ] Verify navigation, alert filtering, and recommendation simulation.
+- [x] Add costs, alerts, and AI recommendations from the uploaded designs.
+- [x] Connect navigation and demonstration controls.
+- [x] Verify navigation, alert filtering, and recommendation simulation.
