@@ -2,6 +2,10 @@ import { useState } from "react";
 import { simulatePac, formatDemoMoney } from "@/lib/pac-simulation";
 import { Button } from "@/components/ui/button";
 import { ScadaShell } from "./ScadaShell";
+import { toast } from "sonner";
+import { demo, useDemo } from "@/lib/demo-store";
+import { validateDose, SAFE_DOSE_MIN, SAFE_DOSE_MAX } from "@/lib/demo-logic";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 export function RecomendacionesScreen() {
  const [ppm, setPpm] = useState(19);
@@ -9,13 +13,21 @@ export function RecomendacionesScreen() {
  const [completed, setCompleted] = useState<Record<string, string>>({});
  const [detail, setDetail] = useState<string | null>(null);
  const projection = simulatePac(ppm, stress);
- const applied = completed["btn-apply-pac"] === String(ppm);
+ const approvedDose = useDemo((st) => st.approvedDose);
+ const applied = approvedDose === ppm;
+ const check = validateDose(ppm, projection.qualityWithinLimits);
+ const [confirming, setConfirming] = useState(false);
+ function confirmApply() {
+  setConfirming(false);
+  const undo = demo.approveDose(ppm, `Costo PAC estimado ${formatDemoMoney(projection.projectedCost, 3)}/m³ · ahorro estimado ${formatDemoMoney(projection.monthlySaving)}/mes. Sin envío a equipos reales.`);
+  toast.success(`Consigna de ${ppm} ppm registrada (demo)`, { description: "Añadida a la Bitácora.", action: { label: "Deshacer", onClick: () => { undo(); toast("Consigna deshecha"); } }, duration: 8000 });
+ }
  function handleAction(id: string) {
   if (id === "btn-stress-test") { setStress(!stress); setPpm(stress ? 19 : 23); return; }
-  setCompleted((current) => ({ ...current, [id]: id === "btn-apply-pac" ? String(ppm) : "Registrado (demo)" }));
-  setDetail(id === "btn-apply-pac"
-   ? `Consigna de ${ppm} ppm registrada en esta demostración. Costo PAC estimado: ${formatDemoMoney(projection.projectedCost, 3)}/m³. Ahorro PAC estimado: ${formatDemoMoney(projection.monthlySaving)}/mes. No se ha enviado ninguna orden a equipos reales.`
-   : "Acción registrada en esta demostración. No se ha enviado ninguna orden a equipos reales.");
+  if (id === "btn-apply-pac") { if (check.ok) setConfirming(true); return; }
+  setCompleted((current) => ({ ...current, [id]: "Registrado (demo)" }));
+  demo.log("consigna", id === "action-2" ? "Ajuste de sopladores simulado" : "Ajuste de ósmosis simulado", "Registrado desde Recomendaciones IA (demo).");
+  toast.success("Acción registrada en la Bitácora (demo)");
  }
  return <ScadaShell><div data-stress={stress ? "active" : "inactive"}><main className="w-full pt-28 pb-20 px-10 max-w-7xl mx-auto space-y-8">
 
@@ -204,6 +216,7 @@ export function RecomendacionesScreen() {
 </div>
 </div>
 
+<p role={check.ok ? undefined : "alert"} className={`text-sm font-semibold ${check.ok ? "text-scada-ink-34" : "text-destructive"}`}>{check.ok ? `Rango seguro de aprobación: ${SAFE_DOSE_MIN}–${SAFE_DOSE_MAX} ppm. Se pedirá confirmación.` : `No se puede registrar: ${check.reason}`}</p>
 <div className="pt-4 border-t border-scada-ink-31 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
 <div className="flex items-center gap-2 text-xs font-label-mono text-scada-ink-35">
 <span className="material-symbols-outlined text-scada-ink-43 text-[18px]">bolt</span>
@@ -214,7 +227,7 @@ export function RecomendacionesScreen() {
 <span className="material-symbols-outlined text-[18px] text-scada-ink-34">science</span>
             Simular Escenario (+30% DQO)
            </>}</Button>
-<Button variant="ghost" size="sm" onClick={() => handleAction("btn-apply-pac")} className="px-6 py-2.5 rounded-lg bg-primary hover:bg-scada-ink-90 text-scada-ink-10 text-sm font-bold transition-all flex items-center gap-2 shadow-md shadow-primary/20 hover:shadow-lg active:scale-95" id="btn-apply-pac" data-action="btn-apply-pac" disabled={applied}>{applied ? `Registrada: ${ppm} ppm (demo)` : <> 
+<Button variant="ghost" size="sm" onClick={() => handleAction("btn-apply-pac")} className="px-6 py-2.5 rounded-lg bg-primary hover:bg-scada-ink-90 text-scada-ink-10 text-sm font-bold transition-all flex items-center gap-2 shadow-md shadow-primary/20 hover:shadow-lg active:scale-95" id="btn-apply-pac" data-action="btn-apply-pac" disabled={applied || !check.ok}>{applied ? `Registrada: ${ppm} ppm (demo)` : <> 
 <span className="material-symbols-outlined text-[20px]" style={{"fontVariationSettings": "'FILL' 1"}}>send</span>
             Registrar consigna (demo)
            </>}</Button>
@@ -292,5 +305,6 @@ export function RecomendacionesScreen() {
 
 </main></div>
  <Dialog open={detail !== null} onOpenChange={(open) => { if (!open) setDetail(null); }}><DialogContent><DialogHeader><DialogTitle>Resultado de demostración</DialogTitle><DialogDescription>{detail}</DialogDescription></DialogHeader></DialogContent></Dialog>
+ <AlertDialog open={confirming} onOpenChange={setConfirming}><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>¿Registrar consigna de {ppm} ppm?</AlertDialogTitle><AlertDialogDescription>Turbidez estimada {projection.turbidity.toFixed(1)} NTU · DQO estimada {projection.dqo.toFixed(0)} mg/L · Ahorro estimado {formatDemoMoney(projection.monthlySaving)}/mes. Es una demostración: no se envía ninguna orden a la planta. Podrás deshacerla.</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel>Cancelar</AlertDialogCancel><AlertDialogAction onClick={confirmApply}>Confirmar registro</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>
  </ScadaShell>;
 }

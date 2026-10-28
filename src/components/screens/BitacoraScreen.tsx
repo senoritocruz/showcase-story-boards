@@ -2,6 +2,9 @@
 import { ScadaShell } from "./ScadaShell";
 import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
+import { SessionLog, logToCsv } from "./SessionLog";
+import { demo } from "@/lib/demo-store";
+import { downloadText } from "@/lib/download";
 
 export function BitacoraScreen() {
   useEffect(() => {
@@ -48,7 +51,8 @@ export function BitacoraScreen() {
 
         setTimeout(() => {
           btnSign.className = "w-full sm:w-auto px-6 py-3 rounded-xl bg-tertiary text-on-tertiary font-headline-sm text-headline-sm font-semibold flex items-center justify-center gap-2.5 shadow-md";
-          signText.textContent = "Firma simulada · Turno B";
+          signText.textContent = "Firma simulada · Turno " + demo.get().shift;
+          if (!demo.get().shiftSigned) demo.signShift();
           
           if (toast) {
             toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
@@ -66,9 +70,11 @@ export function BitacoraScreen() {
       const btnExport = document.getElementById('btn-export-log');
       if (btnExport) {
         btnExport.addEventListener('click', () => {
+          const d = new Date().toISOString().slice(0, 10);
+          downloadText(`bitacora_turno_${demo.get().shift}_${d}.csv`, logToCsv(demo.get().log));
           if (toastTitle && toastMsg && toast) {
             toastTitle.textContent = "Reporte CSV Generado";
-            toastMsg.textContent = "Descarga iniciada: bitacora_turno_b_20250514.csv";
+            toastMsg.textContent = `Descarga iniciada: ${demo.get().log.length} eventos de la sesión`;
             toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
             setTimeout(() => {
               toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
@@ -169,6 +175,7 @@ export function BitacoraScreen() {
 </div>
 </div>
 </section>
+<SessionLog />
 {/* 2. Barra de Segmentación y Filtros con Contenedor Marcado */}
 <section className="space-y-4">
 <div className="flex items-center justify-between px-1">

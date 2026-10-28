@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScadaShell } from "./ScadaShell";
+import { useNavigate } from "@tanstack/react-router";
+import { toast } from "sonner";
+import { demo, openAlertCount, useDemo } from "@/lib/demo-store";
+import { StatusPill } from "./TopBar";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 export function AlertasScreen() {
  const [filter, setFilter] = useState("all");
@@ -10,15 +14,32 @@ export function AlertasScreen() {
  const [completed, setCompleted] = useState<Record<string, string>>({});
  const [detail, setDetail] = useState<string | null>(null);
  const actions: Record<string, string> = {"filter-all": "Todas 3", "filter-cost": "Sobrecosto Económico", "filter-chemical": "Parámetro Químico", "filter-filter": "Mantenimiento / Filtro", "quick-mitigate-all": "bolt Simular mitigación IA", "action-5": "tune Simular ajuste a 19 ppm", "action-6": "calculate Simular Impacto Hidráulico", "action-7": "wash Programar Ciclo de Lavado", "action-8": "query_stats Ver Telemetría Presión", "action-9": "build Solicitar Mant. Preventivo", "action-10": "snooze Pausar Alarma 4h"};
+ const navigate = useNavigate();
+ const alerts = useDemo((st) => st.alerts);
+ const open = useDemo(openAlertCount);
+ const status = (id: string) => alerts.find((x) => x.id === id)?.status ?? "abierta";
+ const resolving: Record<string, [string, "resuelta" | "pausada", string]> = {
+  "action-7": ["filtro", "resuelta", "Ciclo de lavado programado (demo)."],
+  "action-9": ["membrana", "resuelta", "Mantenimiento preventivo solicitado (demo)."],
+  "action-10": ["membrana", "pausada", "Alarma pausada 4h (demo)."],
+ };
  function handleAction(id: string) {
   if (id.startsWith("filter-")) { setFilter(id.slice(7)); return; }
-  if (id === "btn-stress-test") { setStress(!stress); setPpm(stress ? 19 : 23); setChanged(true); return; }
-  const label = actions[id] || "";
-  if (/Simular|Telemetría|desglose/.test(label)) {
-   setDetail(/desglose/.test(label) ? "Reactivos: $0.58/m³ · Energía: $0.44/m³ · Lodos: $0.26/m³ · Membranas: $0.14/m³. Total: $1.42/m³." : /Presión/.test(label) ? "FILT-DEHYD-02: 4.8 bar. Rango nominal: 3.2–4.0 bar. Umbral crítico: 5.5 bar. Datos de demostración." : "Escenario de demostración: PAC 19 ppm · Turbidez 1.8 NTU · DQO 48 mg/L · Ahorro estimado $14,820 USD/mes."); return;
+  if (id === "action-5") { toast("Revisa y aprueba la consigna recomendada", { description: "Al aprobar una dosis segura, esta alerta se cerrará." }); navigate({ to: "/recomendaciones" }); return; }
+  if (id === "quick-mitigate-all") {
+   const pending = alerts.filter((x) => x.status !== "resuelta");
+   pending.forEach((x) => demo.setAlert(x.id, "resuelta", "Mitigación IA simulada para todas las alertas."));
+   toast.success(pending.length ? `${pending.length} alertas resueltas (demo)` : "No hay alertas pendientes", { action: pending.length ? { label: "Deshacer", onClick: () => pending.forEach((x) => demo.reopenAlert(x.id)) } : undefined });
+   return;
   }
-  setCompleted((current) => ({ ...current, [id]: /Lavado/.test(label) ? "Lavado programado (demo)" : /Mant./.test(label) ? "Solicitud registrada (demo)" : /Pausar/.test(label) ? "Alarma pausada 4h (demo)" : "Consigna aprobada (demo)" }));
-  setDetail("Acción registrada en esta demostración. No se ha enviado ninguna orden a una planta ni a un PLC real.");
+  const r = resolving[id];
+  if (r) {
+   demo.setAlert(r[0], r[1], r[2]);
+   toast.success(r[2], { description: "Registrado en la Bitácora.", action: { label: "Deshacer", onClick: () => demo.reopenAlert(r[0]) } });
+   return;
+  }
+  const label = actions[id] || "";
+  setDetail(/Presión/.test(label) ? "FILT-DEHYD-02: 4.8 bar. Rango nominal: 3.2–4.0 bar. Umbral crítico: 5.5 bar. Datos de demostración." : "Escenario de demostración: PAC 19 ppm · Turbidez 1.8 NTU · DQO 48 mg/L · Ahorro estimado $14,820 USD/mes.");
  }
  return <ScadaShell><div data-stress={stress ? "active" : "inactive"}><main className="w-full pt-24 pb-16 px-8 min-h-screen space-y-6"><div className="flex flex-col w-full">
 
@@ -27,7 +48,7 @@ export function AlertasScreen() {
 <div className="flex items-center gap-2">
 <span className="font-label-mono text-label-mono uppercase tracking-normal text-primary font-bold">Diagnóstico SCADA • Motor Inferencial IA</span>
 <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-mono text-[10px] font-bold">
-          3 alertas de ejemplo
+          {open} alertas abiertas
         </span>
 </div>
 <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-normal">Desviaciones Operativas y Detección de Anomalías</h1>
@@ -140,7 +161,8 @@ export function AlertasScreen() {
 <span className="font-label-mono text-label-mono text-on-surface-variant">Ordenado por criticidad financiera</span>
 </div>
 
-<article hidden={filter !== "all" && !["cost", "chemical"].includes(filter)} className="relative rounded-lg bg-surface-container-lowest p-6 shadow-sm overflow-hidden group transition-all hover:shadow-md" data-category="cost chemical">
+<article hidden={filter !== "all" && !["cost", "chemical"].includes(filter)} data-status={status("pac")} className={`${status("pac") === "resuelta" ? "opacity-60 " : ""}relative rounded-lg bg-surface-container-lowest p-6 shadow-sm overflow-hidden group transition-all hover:shadow-md`} data-category="cost chemical">
+<div className="mb-3"><StatusPill status={status("pac")} /></div>
 
 <div className="absolute left-0 top-0 bottom-0 w-2 bg-error"></div>
 <div className="flex flex-col xl:flex-row items-start xl:items-stretch gap-6 pl-2">
@@ -234,7 +256,7 @@ export function AlertasScreen() {
 </div>
 
 <div className="space-y-2 pt-4">
-<Button variant="ghost" size="sm" onClick={() => handleAction("action-5")} className="w-full py-2.5 px-3 rounded-lg bg-tertiary text-on-tertiary font-caption text-caption font-bold hover:bg-tertiary-container transition-all flex items-center justify-center gap-1.5 shadow-xs" data-action="action-5" disabled={Boolean(completed["action-5"]) && !"action-5".startsWith("filter-")}>{completed["action-5"] || <> 
+<Button variant="ghost" size="sm" onClick={() => handleAction("action-5")} className="w-full py-2.5 px-3 rounded-lg bg-tertiary text-on-tertiary font-caption text-caption font-bold hover:bg-tertiary-container transition-all flex items-center justify-center gap-1.5 shadow-xs" data-action="action-5" disabled={status("pac") === "resuelta"}>{completed["action-5"] || <> 
 <span className="material-symbols-outlined text-[18px]">tune</span>
 <span >Simular ajuste a 19 ppm</span>
  </>}</Button>
@@ -247,7 +269,8 @@ export function AlertasScreen() {
 </div>
 </article>
 
-<article hidden={filter !== "all" && !["filter"].includes(filter)} className="relative rounded-lg bg-surface-container-lowest p-6 shadow-sm overflow-hidden group transition-all hover:shadow-md" data-category="filter">
+<article hidden={filter !== "all" && !["filter"].includes(filter)} data-status={status("filtro")} className={`${status("filtro") === "resuelta" ? "opacity-60 " : ""}relative rounded-lg bg-surface-container-lowest p-6 shadow-sm overflow-hidden group transition-all hover:shadow-md`} data-category="filter">
+<div className="mb-3"><StatusPill status={status("filtro")} /></div>
 
 <div className="absolute left-0 top-0 bottom-0 w-2 bg-scada-ink-44"></div>
 <div className="flex flex-col xl:flex-row items-start xl:items-stretch gap-6 pl-2">
@@ -332,7 +355,7 @@ export function AlertasScreen() {
 </div>
 </div>
 <div className="space-y-2 pt-4">
-<Button variant="ghost" size="sm" onClick={() => handleAction("action-7")} className="w-full py-2.5 px-3 rounded-lg bg-primary text-on-primary font-caption text-caption font-bold hover:bg-primary-container transition-all flex items-center justify-center gap-1.5 shadow-xs" data-action="action-7" disabled={Boolean(completed["action-7"]) && !"action-7".startsWith("filter-")}>{completed["action-7"] || <> 
+<Button variant="ghost" size="sm" onClick={() => handleAction("action-7")} className="w-full py-2.5 px-3 rounded-lg bg-primary text-on-primary font-caption text-caption font-bold hover:bg-primary-container transition-all flex items-center justify-center gap-1.5 shadow-xs" data-action="action-7" disabled={status("filtro") === "resuelta"}>{completed["action-7"] || <> 
 <span className="material-symbols-outlined text-[18px]">wash</span>
 <span >Programar Ciclo de Lavado</span>
  </>}</Button>
@@ -345,7 +368,8 @@ export function AlertasScreen() {
 </div>
 </article>
 
-<article hidden={filter !== "all" && !["chemical"].includes(filter)} className="relative rounded-lg bg-surface-container-lowest p-6 shadow-sm overflow-hidden group transition-all hover:shadow-md" data-category="chemical">
+<article hidden={filter !== "all" && !["chemical"].includes(filter)} data-status={status("membrana")} className={`${status("membrana") === "resuelta" ? "opacity-60 " : ""}relative rounded-lg bg-surface-container-lowest p-6 shadow-sm overflow-hidden group transition-all hover:shadow-md`} data-category="chemical">
+<div className="mb-3"><StatusPill status={status("membrana")} /></div>
 
 <div className="absolute left-0 top-0 bottom-0 w-2 bg-primary"></div>
 <div className="flex flex-col xl:flex-row items-start xl:items-stretch gap-6 pl-2">
@@ -425,11 +449,11 @@ export function AlertasScreen() {
 </div>
 </div>
 <div className="space-y-2 pt-4">
-<Button variant="ghost" size="sm" onClick={() => handleAction("action-9")} className="w-full py-2.5 px-3 rounded-lg bg-primary text-on-primary font-caption text-caption font-bold hover:bg-primary-container transition-all flex items-center justify-center gap-1.5 shadow-xs" data-action="action-9" disabled={Boolean(completed["action-9"]) && !"action-9".startsWith("filter-")}>{completed["action-9"] || <> 
+<Button variant="ghost" size="sm" onClick={() => handleAction("action-9")} className="w-full py-2.5 px-3 rounded-lg bg-primary text-on-primary font-caption text-caption font-bold hover:bg-primary-container transition-all flex items-center justify-center gap-1.5 shadow-xs" data-action="action-9" disabled={status("membrana") === "resuelta"}>{completed["action-9"] || <> 
 <span className="material-symbols-outlined text-[18px]">build</span>
 <span >Solicitar Mant. Preventivo</span>
  </>}</Button>
-<Button variant="ghost" size="sm" onClick={() => handleAction("action-10")} className="w-full py-2 px-3 rounded-lg bg-surface-container-highest text-on-surface font-caption text-caption font-semibold hover:bg-surface-variant transition-all flex items-center justify-center gap-1.5" data-action="action-10" disabled={Boolean(completed["action-10"]) && !"action-10".startsWith("filter-")}>{completed["action-10"] || <> 
+<Button variant="ghost" size="sm" onClick={() => handleAction("action-10")} className="w-full py-2 px-3 rounded-lg bg-surface-container-highest text-on-surface font-caption text-caption font-semibold hover:bg-surface-variant transition-all flex items-center justify-center gap-1.5" data-action="action-10" disabled={status("membrana") === "resuelta"}>{completed["action-10"] || <> 
 <span className="material-symbols-outlined text-[17px]">snooze</span>
 <span >Pausar Alarma 4h</span>
  </>}</Button>
