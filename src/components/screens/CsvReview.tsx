@@ -27,17 +27,17 @@ export function CsvReview() {
     const zone = document.getElementById("dropZone");
     const input = document.getElementById("fileInput") as HTMLInputElement | null;
     if (!zone || !input) return;
-    const openPicker = () => input.click();
+    const openPicker = (e?: Event) => { if (e?.target === input) return; input.click(); };
     const onChange = () => { if (input.files?.[0]) load(input.files[0]); input.value = ""; };
     const onDrop = (e: DragEvent) => { e.preventDefault(); const f = e.dataTransfer?.files?.[0]; if (f) load(f); };
     const onOver = (e: DragEvent) => e.preventDefault();
     zone.addEventListener("click", openPicker); input.addEventListener("change", onChange);
     zone.addEventListener("drop", onDrop); zone.addEventListener("dragover", onOver);
     zone.setAttribute("role", "button"); zone.setAttribute("tabindex", "0"); zone.setAttribute("aria-label", "Seleccionar archivo CSV");
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openPicker(); } };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); input.click(); } };
     zone.addEventListener("keydown", onKey);
     const tpl = () => { downloadText("plantilla_aquasense.csv", CSV_TEMPLATE); toast.success("Plantilla descargada"); };
-    const quick = () => openPicker();
+    const quick = () => input.click();
     const inject = () => {
       const cur = fileRef.current;
       if (!cur) { toast.error("Primero selecciona un archivo CSV"); return; }
