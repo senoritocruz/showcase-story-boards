@@ -10,7 +10,7 @@ describe("dose safeguard (18–22 ppm)", () => {
 
 describe("CSV validation", () => {
   it("accepts the template", () => { const r = parseCsv(CSV_TEMPLATE); expect(r.errors).toEqual([]); expect(r.validRows).toBe(3); });
-  it("reports missing columns", () => { expect(parseCsv("a,b\n1,2").errors[0].message).toMatch(/Faltan columnas/); });
+  it("reports missing columns", () => { expect(parseCsv("a,b\n1,2").errors[0]?.message).toMatch(/Faltan columnas/); });
   it("flags out-of-range and non-numeric values", () => {
     const r = parseCsv("timestamp,sensor_id,parametro,valor,unidad\n2026-01-01,X,ph,15,u\n2026-01-01,X,dqo,abc,u");
     expect(r.errors.map((e) => e.row)).toEqual([2, 3]);
@@ -24,7 +24,7 @@ describe("shared demo state", () => {
     expect(openAlertCount(demo.get())).toBe(3);
     demo.setAlert("filtro", "resuelta", "x");
     expect(openAlertCount(demo.get())).toBe(2);
-    expect(demo.get().log[0].kind).toBe("alerta");
+    expect(demo.get().log[0]?.kind).toBe("alerta");
   });
   it("approving a dose closes the PAC alert and undo restores it", () => {
     const undo = demo.approveDose(19, "x");

@@ -23,7 +23,7 @@ export const SHIFTS = [
 
 export function initialState(): DemoState {
   return {
-    plant: PLANTS[0],
+    plant: PLANTS[0] ?? "Planta Norte",
     shift: "B",
     alerts: [
       { id: "pac", title: "Sobredosificación PAC en Reactor MBR", status: "abierta" },

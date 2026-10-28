@@ -11,7 +11,7 @@ export function TopBar() {
   const shiftId = useDemo((s) => s.shift);
   const alerts = useDemo((s) => s.alerts);
   const open = useDemo(openAlertCount);
-  const shift = SHIFTS.find((s) => s.id === shiftId) ?? SHIFTS[1];
+  const shift = SHIFTS.find((s) => s.id === shiftId) ?? SHIFTS[1]!;
   return <header className="fixed top-0 left-72 right-0 min-h-[68px] py-3.5 px-8 bg-scada-ink-10/95 backdrop-blur-md border-b border-scada-ink-26 shadow-xs z-40 flex items-center justify-between transition-all">
     <div className="flex items-center gap-3">
       <DropdownMenu>

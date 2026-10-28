@@ -46,7 +46,7 @@ export function parseCsv(text: string): CsvResult {
   const lines = text.replace(/^\uFEFF/, "").split(/\r?\n/).filter((l) => l.trim() !== "");
   const errors: CsvIssue[] = [];
   if (lines.length === 0) return { headers: [], rows: [], errors: [{ row: 0, message: "El archivo está vacío." }], validRows: 0 };
-  const headers = splitLine(lines[0]).map((h) => h.toLowerCase());
+  const headers = splitLine(lines[0] ?? "").map((h) => h.toLowerCase());
   const missing = CSV_COLUMNS.filter((c) => !headers.includes(c));
   if (missing.length) errors.push({ row: 1, message: `Faltan columnas: ${missing.join(", ")}.` });
   const rows: CsvRow[] = [];
@@ -59,14 +59,15 @@ export function parseCsv(text: string): CsvResult {
     rows.push(row);
     if (missing.length) return;
     const before = errors.length;
+    const ts = row["timestamp"] ?? "", valor = row["valor"] ?? "", parametro = row["parametro"] ?? "";
     if (cells.length !== headers.length) errors.push({ row: n, message: `Se esperaban ${headers.length} columnas y hay ${cells.length}.` });
-    if (Number.isNaN(Date.parse(row.timestamp))) errors.push({ row: n, message: `Fecha no válida: "${row.timestamp}".` });
-    const value = Number(row.valor);
-    if (row.valor === "" || !Number.isFinite(value)) errors.push({ row: n, message: `Valor no numérico: "${row.valor}".` });
+    if (Number.isNaN(Date.parse(ts))) errors.push({ row: n, message: `Fecha no válida: "${ts}".` });
+    const value = Number(valor);
+    if (valor === "" || !Number.isFinite(value)) errors.push({ row: n, message: `Valor no numérico: "${valor}".` });
     else {
-      const range = CSV_RANGES[row.parametro?.toLowerCase()];
-      if (!range) errors.push({ row: n, message: `Parámetro desconocido: "${row.parametro}".` });
-      else if (value < range[0] || value > range[1]) errors.push({ row: n, message: `${row.parametro} = ${value} fuera de rango (${range[0]}–${range[1]}).` });
+      const range = CSV_RANGES[parametro.toLowerCase()];
+      if (!range) errors.push({ row: n, message: `Parámetro desconocido: "${parametro}".` });
+      else if (value < range[0] || value > range[1]) errors.push({ row: n, message: `${parametro} = ${value} fuera de rango (${range[0]}–${range[1]}).` });
     }
     if (errors.length === before) validRows++;
   });
