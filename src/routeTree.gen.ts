@@ -10,33 +10,102 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AlertasRouteImport } from './routes/alertas'
+import { Route as BitacoraRouteImport } from './routes/bitacora'
+import { Route as CargaCsvRouteImport } from './routes/carga-csv'
+import { Route as CostosRouteImport } from './routes/costos'
+import { Route as RecomendacionesRouteImport } from './routes/recomendaciones'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AlertasRoute = AlertasRouteImport.update({
+  id: '/alertas',
+  path: '/alertas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BitacoraRoute = BitacoraRouteImport.update({
+  id: '/bitacora',
+  path: '/bitacora',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CargaCsvRoute = CargaCsvRouteImport.update({
+  id: '/carga-csv',
+  path: '/carga-csv',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CostosRoute = CostosRouteImport.update({
+  id: '/costos',
+  path: '/costos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecomendacionesRoute = RecomendacionesRouteImport.update({
+  id: '/recomendaciones',
+  path: '/recomendaciones',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/alertas': typeof AlertasRoute
+  '/bitacora': typeof BitacoraRoute
+  '/carga-csv': typeof CargaCsvRoute
+  '/costos': typeof CostosRoute
+  '/recomendaciones': typeof RecomendacionesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/alertas': typeof AlertasRoute
+  '/bitacora': typeof BitacoraRoute
+  '/carga-csv': typeof CargaCsvRoute
+  '/costos': typeof CostosRoute
+  '/recomendaciones': typeof RecomendacionesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/alertas': typeof AlertasRoute
+  '/bitacora': typeof BitacoraRoute
+  '/carga-csv': typeof CargaCsvRoute
+  '/costos': typeof CostosRoute
+  '/recomendaciones': typeof RecomendacionesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/alertas'
+    | '/bitacora'
+    | '/carga-csv'
+    | '/costos'
+    | '/recomendaciones'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/alertas'
+    | '/bitacora'
+    | '/carga-csv'
+    | '/costos'
+    | '/recomendaciones'
+  id:
+    | '__root__'
+    | '/'
+    | '/alertas'
+    | '/bitacora'
+    | '/carga-csv'
+    | '/costos'
+    | '/recomendaciones'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AlertasRoute: typeof AlertasRoute
+  BitacoraRoute: typeof BitacoraRoute
+  CargaCsvRoute: typeof CargaCsvRoute
+  CostosRoute: typeof CostosRoute
+  RecomendacionesRoute: typeof RecomendacionesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +117,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/alertas': {
+      id: '/alertas'
+      path: '/alertas'
+      fullPath: '/alertas'
+      preLoaderRoute: typeof AlertasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bitacora': {
+      id: '/bitacora'
+      path: '/bitacora'
+      fullPath: '/bitacora'
+      preLoaderRoute: typeof BitacoraRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/carga-csv': {
+      id: '/carga-csv'
+      path: '/carga-csv'
+      fullPath: '/carga-csv'
+      preLoaderRoute: typeof CargaCsvRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/costos': {
+      id: '/costos'
+      path: '/costos'
+      fullPath: '/costos'
+      preLoaderRoute: typeof CostosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recomendaciones': {
+      id: '/recomendaciones'
+      path: '/recomendaciones'
+      fullPath: '/recomendaciones'
+      preLoaderRoute: typeof RecomendacionesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AlertasRoute: AlertasRoute,
+  BitacoraRoute: BitacoraRoute,
+  CargaCsvRoute: CargaCsvRoute,
+  CostosRoute: CostosRoute,
+  RecomendacionesRoute: RecomendacionesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
