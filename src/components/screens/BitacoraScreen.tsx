@@ -43,11 +43,11 @@ export function BitacoraScreen() {
       function triggerShiftSign() {
         if (!btnSign) return;
         btnSign.disabled = true;
-        signText.textContent = "Validando Hash Criptográfico...";
+        signText.textContent = "Simulando validación de firma...";
 
         setTimeout(() => {
           btnSign.className = "w-full sm:w-auto px-6 py-3 rounded-xl bg-tertiary text-on-tertiary font-headline-sm text-headline-sm font-semibold flex items-center justify-center gap-2.5 shadow-md";
-          signText.textContent = "Turno B Firmado Digitalmente";
+          signText.textContent = "Firma simulada · Turno B";
           
           if (toast) {
             toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
@@ -107,11 +107,11 @@ export function BitacoraScreen() {
 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
 </span>
 <div >
-<div className="font-label-mono text-[11px] text-white font-semibold leading-tight">TELEMETRÍA LINK</div>
-<div className="font-label-mono text-[9px] text-slate-400">Modbus/TCP • 42ms</div>
+<div className="font-label-mono text-[11px] text-white font-semibold leading-tight">Datos de ejemplo</div>
+<div className="font-label-mono text-[9px] text-slate-400">Sin conexión a planta</div>
 </div>
 </div>
-<span className="font-label-mono text-[11px] font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-500/40 px-2 py-0.5 rounded">ONLINE</span>
+<span className="font-label-mono text-[11px] font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-500/40 px-2 py-0.5 rounded">DEMO</span>
 </div>
 </div>
 {/* Navigation links: Item 'Bitácora y Validación' clearly highlighted and active */}
@@ -176,7 +176,7 @@ export function BitacoraScreen() {
 <span className="material-symbols-outlined text-[13px] text-slate-400">memory</span>
         Gateway SCADA 3.4
       </span>
-<span className="text-emerald-400 font-bold">● SYNC 100%</span>
+<span className="text-emerald-400 font-bold">● DATOS DE DEMO</span>
 </div>
 </div>
 </aside>
@@ -210,7 +210,7 @@ export function BitacoraScreen() {
 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
 </span>
-<span className="font-label-mono text-xs font-bold tracking-tight text-emerald-800">NOM-001: 99.4% Cumple</span>
+<span className="font-label-mono text-xs font-bold tracking-tight text-emerald-800">NOM-001: 99.4% (ejemplo)</span>
 </div>
 {/* Notifications */}
 <div className="relative p-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 cursor-pointer transition-colors">
@@ -256,7 +256,7 @@ export function BitacoraScreen() {
 </button>
 <button className="px-4 py-2.5 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-headline-sm text-headline-sm flex items-center gap-2 shadow-md transition-all font-semibold" id="btn-sign-shift-top">
 <span className="material-symbols-outlined text-[20px]" style={{"fontVariationSettings": "'FILL' 1"}}>draw</span>
-<span className="">Cerrar y Firmar Turno B</span>
+<span className="">Simular cierre de Turno B</span>
 </button>
 </div>
 </div>
@@ -323,7 +323,7 @@ export function BitacoraScreen() {
 <span className="material-symbols-outlined text-primary text-[20px]">tune</span>
 <h3 className="font-headline-sm text-slate-900 font-bold uppercase tracking-wider text-xs">Filtrar y Explorar Eventos de Bitácora</h3>
 </div>
-<span className="font-label-mono text-caption text-slate-500">Mostrando registros auditados en tiempo real</span>
+<span className="font-label-mono text-caption text-slate-500">Registros de ejemplo · sin auditoría real</span>
 </div>
 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-surface-container-lowest p-3.5 rounded-2xl border border-slate-200 shadow-sm">
 {/* Selector de Turno (Pills Segmentadas) */}
@@ -395,7 +395,7 @@ export function BitacoraScreen() {
 <div className="flex items-center gap-2 font-label-mono text-caption text-slate-500">
 <span className="font-medium">Operador: Ing. M. Romero</span>
 <span className="">•</span>
-<span className="text-tertiary font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">PLC Modbus TCP ACK recibido @ 18:43:02</span>
+<span className="text-tertiary font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Confirmación de ejemplo · 18:43:02</span>
 </div>
 </div>
 </div>

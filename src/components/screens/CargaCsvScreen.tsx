@@ -23,9 +23,9 @@ export function CargaCsvScreen() {
 
     if (btnSimulate) {
       btnSimulate.addEventListener('click', () => {
-        btnSimulate.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span> Verificando matriz...';
+        btnSimulate.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span> Simulando comprobación...';
         setTimeout(() => {
-          btnSimulate.innerHTML = '<span class="material-symbols-outlined text-[18px] text-tertiary-container">done</span> Consistencia 100%';
+          btnSimulate.innerHTML = '<span class="material-symbols-outlined text-[18px] text-tertiary-container">done</span> Simulación completada (demo)';
         }, 1200);
       });
     }
@@ -84,11 +84,11 @@ export function CargaCsvScreen() {
 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
 </span>
 <div >
-<div className="font-label-mono text-[11px] text-white font-semibold leading-tight">TELEMETRÍA LINK</div>
-<div className="font-label-mono text-[9px] text-slate-400">Modbus/TCP • 42ms</div>
+<div className="font-label-mono text-[11px] text-white font-semibold leading-tight">Datos de ejemplo</div>
+<div className="font-label-mono text-[9px] text-slate-400">Sin conexión a planta</div>
 </div>
 </div>
-<span className="font-label-mono text-[11px] font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-500/40 px-2 py-0.5 rounded">ONLINE</span>
+<span className="font-label-mono text-[11px] font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-500/40 px-2 py-0.5 rounded">DEMO</span>
 </div>
 </div>
 {/* Navigation links: 'Carga de Datos CSV' iluminado y activo */}
@@ -155,7 +155,7 @@ export function CargaCsvScreen() {
 <span className="material-symbols-outlined text-[13px] text-slate-400">memory</span>
         Gateway SCADA 3.4
       </span>
-<span className="text-emerald-400 font-bold">● SYNC 100%</span>
+<span className="text-emerald-400 font-bold">● DATOS DE DEMO</span>
 </div>
 </div>
 </aside>
@@ -189,7 +189,7 @@ export function CargaCsvScreen() {
 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
 </span>
-<span className="font-label-mono text-xs font-bold tracking-tight text-emerald-800">NOM-001: 99.4% Cumple</span>
+<span className="font-label-mono text-xs font-bold tracking-tight text-emerald-800">NOM-001: 99.4% (ejemplo)</span>
 </div>
 {/* Notifications */}
 <div className="relative p-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 cursor-pointer transition-colors">
@@ -218,17 +218,17 @@ export function CargaCsvScreen() {
         SCADA PIPELINE
       </span>
 <span >/</span>
-<span >INGESTA DE TELEMETRÍA</span>
+<span >INGESTA DE DEMO</span>
 <span >/</span>
 <span className="text-on-surface font-semibold">BATCH CSV V4.2</span>
 </div>
 <div className="flex items-center gap-3">
 <div className="flex items-center gap-2 px-3 py-1 bg-surface-container rounded-full shadow-sm">
 <span className="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span>
-<span className="font-label-mono text-caption text-on-surface-variant font-semibold">MODO SEGURO ACTIVO (PARQUET/SQL READY)</span>
+<span className="font-label-mono text-caption text-on-surface-variant font-semibold">DEMO · SIN CONEXIÓN A PLANTA</span>
 </div>
 <div className="px-2.5 py-1 bg-surface-container-high rounded-full font-label-mono text-caption text-primary font-bold">
-        CRC-32 CHECKSUM OK
+        CHECKSUM DE EJEMPLO
       </div>
 </div>
 </div>
@@ -269,10 +269,10 @@ export function CargaCsvScreen() {
 <div className="flex items-start justify-between">
 <div className="space-y-1">
 <span className="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-wider block">
-            ÚLTIMA SINCRONIZACIÓN EXITOSA
+            SINCRONIZACIÓN DE EJEMPLO
           </span>
 <div className="font-data-metric-lg text-data-metric-lg text-on-surface font-semibold tracking-tight">
-            Hoy, 13:45 <span className="font-body-sm text-body-sm font-normal text-on-surface-variant">hrs</span>
+            Ejemplo · 13:45 <span className="font-body-sm text-body-sm font-normal text-on-surface-variant">hrs</span>
 </div>
 </div>
 <div className="w-9 h-9 rounded-lg bg-surface-container-low text-primary flex items-center justify-center">
@@ -676,7 +676,7 @@ export function CargaCsvScreen() {
                 </span>
 </div>
 <span className="px-2 py-0.5 rounded font-label-mono text-caption font-bold bg-tertiary-container text-on-tertiary shrink-0">
-                Sincronizado SCADA
+                Registro de ejemplo
               </span>
 </div>
 <div className="mt-2 flex items-center justify-between font-label-mono text-caption text-on-surface-variant">
@@ -712,7 +712,7 @@ export function CargaCsvScreen() {
                 </span>
 </div>
 <span className="px-2 py-0.5 rounded font-label-mono text-caption font-bold bg-tertiary-container text-on-tertiary shrink-0">
-                Sincronizado SCADA
+                Registro de ejemplo
               </span>
 </div>
 <div className="mt-2 flex items-center justify-between font-label-mono text-caption text-on-surface-variant">
@@ -748,7 +748,7 @@ export function CargaCsvScreen() {
                 </span>
 </div>
 <span className="px-2 py-0.5 rounded font-label-mono text-caption font-bold bg-tertiary-container text-on-tertiary shrink-0">
-                Sincronizado SCADA
+                Registro de ejemplo
               </span>
 </div>
 <div className="mt-2 flex items-center justify-between font-label-mono text-caption text-on-surface-variant">

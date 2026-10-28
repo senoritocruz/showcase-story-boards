@@ -9,7 +9,7 @@ export function CostosScreen() {
  const [stress, setStress] = useState(false);
  const [completed, setCompleted] = useState<Record<string, string>>({});
  const [detail, setDetail] = useState<string | null>(null);
- const actions: Record<string, string> = {"action-0": "check_circle Aplicar Optimización", "action-1": "tune Simular", "action-2": "Ver desglose detallado por tren arrow_forward", "action-3": "electric_bolt Aprobar Ajuste en SCADA (19 ppm)"};
+ const actions: Record<string, string> = {"action-0": "check_circle Simular optimización", "action-1": "tune Simular", "action-2": "Ver desglose detallado por tren arrow_forward", "action-3": "electric_bolt Registrar ajuste 19 ppm (demo)"};
  function handleAction(id: string) {
   if (id.startsWith("filter-")) { setFilter(id.slice(7)); return; }
   if (id === "btn-stress-test") { setStress(!stress); setPpm(stress ? 19 : 23); setChanged(true); return; }
@@ -26,10 +26,10 @@ export function CostosScreen() {
 <div className="flex items-center gap-2.5">
 <h1 className="font-headline-md text-2xl font-bold text-scada-ink-33 tracking-normal">Centro de Mando Operativo</h1>
 <span className="px-2.5 py-1 rounded-full bg-scada-ink-36 text-scada-ink-39 font-label-mono text-xs font-bold flex items-center gap-1.5 border border-scada-ink-42 shadow-xs">
-<span className="w-2 h-2 rounded-full bg-scada-ink-17 animate-pulse"></span> En Vivo (Turno B)
+<span className="w-2 h-2 rounded-full bg-scada-ink-17 animate-pulse"></span> Ejemplo · Turno B
       </span>
 </div>
-<p className="font-body-sm text-xs text-scada-ink-35 mt-1.5">Supervisión instantánea de costo unitario, cumplimiento normativo NOM-001 y optimización química.</p>
+<p className="font-body-sm text-xs text-scada-ink-35 mt-1.5">Escenario de ejemplo de costo unitario, cumplimiento normativo NOM-001 y optimización química.</p>
 </div>
 <div className="flex items-center gap-3">
 <div className="flex items-center gap-2 bg-scada-ink-10 px-3.5 py-2 rounded-lg border border-scada-ink-26 shadow-xs font-label-mono text-xs text-scada-ink-34">
@@ -43,7 +43,7 @@ export function CostosScreen() {
 </div>
 </div>
 
-<section className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+<section className="grid grid-cols-1 xl:grid-cols-3 gap-5">
 
 <div className="bg-scada-ink-10 rounded-lg p-6 border border-scada-ink-26 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between relative overflow-hidden">
 <div className="flex items-center justify-between">
@@ -88,7 +88,7 @@ export function CostosScreen() {
 <span className="font-label-mono text-xs font-bold uppercase tracking-normal text-scada-ink-34">Norma NOM-001 SEMARNAT</span>
 </div>
 <span className="px-2.5 py-0.5 rounded-full bg-scada-ink-54 text-scada-ink-39 font-label-mono text-[11px] font-bold border border-scada-ink-42">
-        100% Cumple
+        Datos de ejemplo
       </span>
 </div>
 <div className="flex items-center justify-center my-4">
@@ -99,7 +99,7 @@ export function CostosScreen() {
 </svg>
 <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
 <span className="font-data-metric-lg text-3xl font-black text-scada-ink-51 leading-none">99.4%</span>
-<span className="font-label-mono text-[11px] text-scada-ink-39 font-bold uppercase mt-1">Garantizado</span>
+<span className="font-label-mono text-[11px] text-scada-ink-39 font-bold uppercase mt-1">Ejemplo</span>
 </div>
 </div>
 </div>
@@ -127,7 +127,7 @@ export function CostosScreen() {
 <span className="font-label-mono text-xs font-bold uppercase tracking-normal text-scada-ink-20">Ahorro IA Identificado</span>
 </div>
 <span className="px-2 py-0.5 rounded-full bg-scada-ink-6 text-scada-ink-11 font-label-mono text-[10px] font-extrabold uppercase tracking-normal">
-        Optimización Activa
+        Escenario demo
       </span>
 </div>
 <div className="my-4">
@@ -142,7 +142,7 @@ export function CostosScreen() {
 <div className="pt-3 border-t border-scada-ink-10/20 flex items-center gap-3">
 <Button variant="ghost" size="sm" onClick={() => handleAction("action-0")} className="flex-1 py-2.5 px-4 bg-scada-ink-10 hover:bg-scada-ink-59 text-scada-ink-33 font-headline-sm font-bold text-xs rounded-lg shadow-md transition-all flex items-center justify-center gap-1.5 active:scale-95" data-action="action-0" disabled={Boolean(completed["action-0"]) && !"action-0".startsWith("filter-")}>{completed["action-0"] || <> 
 <span className="material-symbols-outlined text-[16px] text-scada-ink-55">check_circle</span>
-<span className="">Aplicar Optimización</span>
+<span className="">Simular optimización</span>
  </>}</Button>
 <Button variant="ghost" size="sm" onClick={() => handleAction("action-1")} className="py-2.5 px-3 bg-scada-ink-10/15 hover:bg-scada-ink-10/25 text-scada-ink-10 font-headline-sm font-semibold text-xs rounded-lg transition-colors flex items-center justify-center gap-1" data-action="action-1" disabled={Boolean(completed["action-1"]) && !"action-1".startsWith("filter-")}>{completed["action-1"] || <> 
 <span className="material-symbols-outlined text-[16px]">tune</span>
@@ -152,9 +152,9 @@ export function CostosScreen() {
 </div>
 </section>
 
-<section className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<section className="grid grid-cols-1 xl:grid-cols-12 gap-6">
 
-<div className="lg:col-span-6 bg-scada-ink-10 rounded-lg p-6 border border-scada-ink-26 shadow-sm flex flex-col justify-between">
+<div className="xl:col-span-6 bg-scada-ink-10 rounded-lg p-6 border border-scada-ink-26 shadow-sm flex flex-col justify-between">
 <div className="flex items-center justify-between pb-3 border-b border-scada-ink-31">
 <div >
 <h2 className="font-headline-sm text-base font-bold text-scada-ink-33">¿Dónde se está gastando el dinero?</h2>
@@ -181,7 +181,7 @@ export function CostosScreen() {
 </svg>
 <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
 <span className="font-data-metric-lg text-lg font-black text-scada-ink-33 leading-tight">$1.42</span>
-<span className="font-label-mono text-[9px] text-scada-ink-15 font-bold uppercase">Costo Real</span>
+<span className="font-label-mono text-[9px] text-scada-ink-15 font-bold uppercase">Costo de ejemplo</span>
 </div>
 </div>
 </div>
@@ -245,7 +245,7 @@ export function CostosScreen() {
 </div>
 </div>
 
-<div className="lg:col-span-6 bg-scada-ink-10 rounded-lg p-6 border-2 border-scada-ink-14 shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div className="xl:col-span-6 bg-scada-ink-10 rounded-lg p-6 border-2 border-scada-ink-14 shadow-sm flex flex-col justify-between relative overflow-hidden">
 <div >
 <div className="flex items-center justify-between pb-3 border-b border-scada-ink-31">
 <div className="flex items-center gap-2 text-scada-ink-39">
@@ -288,7 +288,7 @@ export function CostosScreen() {
 <div className="flex items-center gap-3 pt-1">
 <Button variant="ghost" size="sm" onClick={() => handleAction("action-3")} className="flex-1 py-3 px-4 bg-scada-ink-43 hover:bg-scada-ink-51 text-scada-ink-10 font-headline-sm font-bold text-xs rounded-lg shadow-md transition-all flex items-center justify-center gap-2 active:scale-95" data-action="action-3" disabled={Boolean(completed["action-3"]) && !"action-3".startsWith("filter-")}>{completed["action-3"] || <> 
 <span className="material-symbols-outlined text-[18px]">electric_bolt</span>
-<span className="">Aprobar Ajuste en SCADA (19 ppm)</span>
+<span className="">Registrar ajuste 19 ppm (demo)</span>
  </>}</Button>
 </div>
 </div>
@@ -298,7 +298,7 @@ export function CostosScreen() {
 <span className="material-symbols-outlined text-[14px] text-scada-ink-43">history</span>
         Último ajuste: <strong >OD Soplantes a 2.0 ppm (Ayer)</strong>
 </span>
-<span className="text-scada-ink-51 font-bold">+3.2% Ahorro Verificado</span>
+<span className="text-scada-ink-51 font-bold">+3.2% Ahorro de ejemplo</span>
 </div>
 </div>
 </section>
@@ -307,7 +307,7 @@ export function CostosScreen() {
 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4">
 <div className="flex items-center gap-2">
 <span className="material-symbols-outlined text-primary text-[20px]">linear_scale</span>
-<h2 className="font-headline-sm text-sm font-bold text-scada-ink-33 uppercase tracking-normal">Estado en Vivo del Tren de Tratamiento</h2>
+<h2 className="font-headline-sm text-sm font-bold text-scada-ink-33 uppercase tracking-normal">Estado de ejemplo del tren de tratamiento</h2>
 </div>
 <span className="text-[11px] font-label-mono text-scada-ink-35">Flujo Continuo: 4 Etapas Supervisadas</span>
 </div>

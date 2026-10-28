@@ -9,7 +9,7 @@ export function AlertasScreen() {
  const [stress, setStress] = useState(false);
  const [completed, setCompleted] = useState<Record<string, string>>({});
  const [detail, setDetail] = useState<string | null>(null);
- const actions: Record<string, string> = {"filter-all": "Todas 3", "filter-cost": "Sobrecosto Económico", "filter-chemical": "Parámetro Químico", "filter-filter": "Mantenimiento / Filtro", "quick-mitigate-all": "bolt Mitigar con Consignas IA", "action-5": "tune Ajustar a 19 ppm en SCADA", "action-6": "calculate Simular Impacto Hidráulico", "action-7": "wash Programar Ciclo de Lavado", "action-8": "query_stats Ver Telemetría Presión", "action-9": "build Solicitar Mant. Preventivo", "action-10": "snooze Pausar Alarma 4h"};
+ const actions: Record<string, string> = {"filter-all": "Todas 3", "filter-cost": "Sobrecosto Económico", "filter-chemical": "Parámetro Químico", "filter-filter": "Mantenimiento / Filtro", "quick-mitigate-all": "bolt Simular mitigación IA", "action-5": "tune Simular ajuste a 19 ppm", "action-6": "calculate Simular Impacto Hidráulico", "action-7": "wash Programar Ciclo de Lavado", "action-8": "query_stats Ver Telemetría Presión", "action-9": "build Solicitar Mant. Preventivo", "action-10": "snooze Pausar Alarma 4h"};
  function handleAction(id: string) {
   if (id.startsWith("filter-")) { setFilter(id.slice(7)); return; }
   if (id === "btn-stress-test") { setStress(!stress); setPpm(stress ? 19 : 23); setChanged(true); return; }
@@ -22,17 +22,17 @@ export function AlertasScreen() {
  }
  return <ScadaShell><div data-stress={stress ? "active" : "inactive"}><main className="w-full pt-24 pb-16 px-8 min-h-screen space-y-6"><div className="flex flex-col w-full">
 
-<div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-6">
+<div className="flex flex-col xl:flex-row lg:items-end justify-between gap-4 pb-6">
 <div className="space-y-1">
 <div className="flex items-center gap-2">
 <span className="font-label-mono text-label-mono uppercase tracking-normal text-primary font-bold">Diagnóstico SCADA • Motor Inferencial IA</span>
 <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-mono text-[10px] font-bold">
-          3 ACTIVAS EN VIVO
+          3 alertas de ejemplo
         </span>
 </div>
 <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-normal">Desviaciones Operativas y Detección de Anomalías</h1>
 <p className="font-body-md text-body-md text-on-surface-variant max-w-3xl">
-        Supervisión en tiempo real de sobrecostos, desvíos de consigna química y alertas de cumplimiento normativo con prescripciones automatizadas.
+        Escenario de ejemplo de sobrecostos, desvíos de consigna química y alertas de cumplimiento normativo con prescripciones automatizadas.
       </p>
 </div>
 
@@ -125,7 +125,7 @@ export function AlertasScreen() {
 <div className="mt-4 pt-2 flex items-center justify-between gap-3">
 <Button variant="ghost" size="sm" onClick={() => handleAction("quick-mitigate-all")} className="w-full py-2.5 px-4 rounded-lg bg-tertiary text-on-tertiary font-caption text-caption font-bold hover:bg-tertiary-container transition-all flex items-center justify-center gap-2 shadow-sm group" id="quick-mitigate-all" data-action="quick-mitigate-all" disabled={Boolean(completed["quick-mitigate-all"]) && !"quick-mitigate-all".startsWith("filter-")}>{completed["quick-mitigate-all"] || <> 
 <span className="material-symbols-outlined text-[18px] group-hover:rotate-12 transition-transform">bolt</span>
-<span >Mitigar con Consignas IA</span>
+<span >Simular mitigación IA</span>
  </>}</Button>
 </div>
 </div>
@@ -143,7 +143,7 @@ export function AlertasScreen() {
 <article hidden={filter !== "all" && !["cost", "chemical"].includes(filter)} className="relative rounded-lg bg-surface-container-lowest p-6 shadow-sm overflow-hidden group transition-all hover:shadow-md" data-category="cost chemical">
 
 <div className="absolute left-0 top-0 bottom-0 w-2 bg-error"></div>
-<div className="flex flex-col lg:flex-row items-start lg:items-stretch gap-6 pl-2">
+<div className="flex flex-col xl:flex-row items-start xl:items-stretch gap-6 pl-2">
 
 <div className="flex-1 space-y-4">
 <div className="flex flex-wrap items-center gap-2">
@@ -169,7 +169,7 @@ export function AlertasScreen() {
 
 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
 <div className="p-3.5 rounded-lg bg-surface-container-low">
-<span className="font-label-mono text-[10px] text-on-surface-variant uppercase tracking-normal block">Consigna Real vs IA</span>
+<span className="font-label-mono text-[10px] text-on-surface-variant uppercase tracking-normal block">Dosis de referencia vs simulada</span>
 <div className="flex items-baseline gap-1.5 mt-0.5">
 <span className="font-data-metric-md text-data-metric-md font-bold text-error">28</span>
 <span className="font-caption text-caption text-on-surface-variant">ppm</span>
@@ -206,7 +206,7 @@ export function AlertasScreen() {
 </div>
 </div>
 
-<div className="w-full lg:w-72 shrink-0 flex flex-col justify-between p-4 rounded-lg bg-surface-container-low">
+<div className="w-full xl:w-72 shrink-0 flex flex-col justify-between p-4 rounded-lg bg-surface-container-low">
 <div >
 <div className="flex items-center justify-between mb-2">
 <span className="font-label-mono text-[11px] text-on-surface-variant uppercase font-semibold">Perfil PAC 24h</span>
@@ -236,7 +236,7 @@ export function AlertasScreen() {
 <div className="space-y-2 pt-4">
 <Button variant="ghost" size="sm" onClick={() => handleAction("action-5")} className="w-full py-2.5 px-3 rounded-lg bg-tertiary text-on-tertiary font-caption text-caption font-bold hover:bg-tertiary-container transition-all flex items-center justify-center gap-1.5 shadow-xs" data-action="action-5" disabled={Boolean(completed["action-5"]) && !"action-5".startsWith("filter-")}>{completed["action-5"] || <> 
 <span className="material-symbols-outlined text-[18px]">tune</span>
-<span >Ajustar a 19 ppm en SCADA</span>
+<span >Simular ajuste a 19 ppm</span>
  </>}</Button>
 <Button variant="ghost" size="sm" onClick={() => handleAction("action-6")} className="w-full py-2 px-3 rounded-lg bg-surface-container-highest text-on-surface font-caption text-caption font-semibold hover:bg-surface-variant transition-all flex items-center justify-center gap-1.5" data-action="action-6" disabled={Boolean(completed["action-6"]) && !"action-6".startsWith("filter-")}>{completed["action-6"] || <> 
 <span className="material-symbols-outlined text-[17px]">calculate</span>
@@ -250,7 +250,7 @@ export function AlertasScreen() {
 <article hidden={filter !== "all" && !["filter"].includes(filter)} className="relative rounded-lg bg-surface-container-lowest p-6 shadow-sm overflow-hidden group transition-all hover:shadow-md" data-category="filter">
 
 <div className="absolute left-0 top-0 bottom-0 w-2 bg-scada-ink-44"></div>
-<div className="flex flex-col lg:flex-row items-start lg:items-stretch gap-6 pl-2">
+<div className="flex flex-col xl:flex-row items-start xl:items-stretch gap-6 pl-2">
 <div className="flex-1 space-y-4">
 <div className="flex flex-wrap items-center gap-2">
 <span className="px-2.5 py-1 rounded-full bg-scada-ink-45 text-scada-ink-46 font-label-mono text-[11px] font-bold uppercase tracking-normal flex items-center gap-1.5">
@@ -309,7 +309,7 @@ export function AlertasScreen() {
 </div>
 </div>
 
-<div className="w-full lg:w-72 shrink-0 flex flex-col justify-between p-4 rounded-lg bg-surface-container-low">
+<div className="w-full xl:w-72 shrink-0 flex flex-col justify-between p-4 rounded-lg bg-surface-container-low">
 <div >
 <div className="flex items-center justify-between mb-2">
 <span className="font-label-mono text-[11px] text-on-surface-variant uppercase font-semibold">Tendencia Presión</span>
@@ -348,7 +348,7 @@ export function AlertasScreen() {
 <article hidden={filter !== "all" && !["chemical"].includes(filter)} className="relative rounded-lg bg-surface-container-lowest p-6 shadow-sm overflow-hidden group transition-all hover:shadow-md" data-category="chemical">
 
 <div className="absolute left-0 top-0 bottom-0 w-2 bg-primary"></div>
-<div className="flex flex-col lg:flex-row items-start lg:items-stretch gap-6 pl-2">
+<div className="flex flex-col xl:flex-row items-start xl:items-stretch gap-6 pl-2">
 <div className="flex-1 space-y-4">
 <div className="flex flex-wrap items-center gap-2">
 <span className="px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-label-mono text-[11px] font-bold uppercase tracking-normal flex items-center gap-1.5">
@@ -406,7 +406,7 @@ export function AlertasScreen() {
 </div>
 </div>
 
-<div className="w-full lg:w-72 shrink-0 flex flex-col justify-between p-4 rounded-lg bg-surface-container-low">
+<div className="w-full xl:w-72 shrink-0 flex flex-col justify-between p-4 rounded-lg bg-surface-container-low">
 <div >
 <div className="flex items-center justify-between mb-2">
 <span className="font-label-mono text-[11px] text-on-surface-variant uppercase font-semibold">Ruido de Turbidez (6h)</span>
@@ -447,7 +447,7 @@ export function AlertasScreen() {
 </div>
 <div >
 <h3 className="font-headline-sm text-headline-sm text-on-surface font-bold">Bitácora de Mitigación y Cierre de Alertas (Hoy)</h3>
-<p className="font-caption text-caption text-on-surface-variant">Validaciones operativas firmadas por personal de turno</p>
+<p className="font-caption text-caption text-on-surface-variant">Ejemplos de validaciones operativas</p>
 </div>
 </div>
 <span className="font-label-mono text-label-mono text-tertiary font-bold flex items-center gap-1">
@@ -474,7 +474,7 @@ export function AlertasScreen() {
 </div>
 </div>
 <div className="flex items-center gap-4 text-right self-end md:self-auto font-label-mono text-label-mono text-on-surface-variant">
-<span className="text-on-surface font-medium">Validado por Ing. M. Romero</span>
+<span className="text-on-surface font-medium">Validación de ejemplo · M. Romero</span>
 <span className="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant text-[10px]">Hace 3h 12m</span>
 </div>
 </div>
@@ -495,7 +495,7 @@ export function AlertasScreen() {
 </div>
 </div>
 <div className="flex items-center gap-4 text-right self-end md:self-auto font-label-mono text-label-mono text-on-surface-variant">
-<span className="text-on-surface font-medium">Validado por Ing. M. Romero</span>
+<span className="text-on-surface font-medium">Validación de ejemplo · M. Romero</span>
 <span className="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant text-[10px]">Hace 6h 40m</span>
 </div>
 </div>
