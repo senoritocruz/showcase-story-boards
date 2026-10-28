@@ -55,12 +55,16 @@ export function ScadaShell({ children }: { children: ReactNode }) { return <div 
 <span className="px-2 py-0.5 rounded-full bg-scada-ink-9/20 text-scada-ink-12 border border-scada-ink-9/30 font-label-mono text-[10px] font-bold">ACTIVO</span>
 </Link>
 <Link to="/bitacora" activeProps={{ className: "scada-nav-active", "aria-current": "page" }} className="scada-nav-link flex items-center justify-between px-3.5 py-2.5 rounded-lg text-[13px]" data-path="tracking">
+<div className="flex items-center gap-3">
 <span className="material-symbols-outlined text-[20px] text-scada-ink-15 group-hover:text-scada-ink-6 transition-colors">verified</span>
 <span className="">Bitácora y Validación</span>
+</div>
 </Link>
 <Link to="/carga-csv" activeProps={{ className: "scada-nav-active", "aria-current": "page" }} className="scada-nav-link flex items-center justify-between px-3.5 py-2.5 rounded-lg text-[13px]" data-path="import">
+<div className="flex items-center gap-3">
 <span className="material-symbols-outlined text-[20px] text-scada-ink-15 group-hover:text-scada-ink-6 transition-colors">upload_file</span>
 <span className="">Carga de Datos CSV</span>
+</div>
 </Link>
 </nav>
 </div>

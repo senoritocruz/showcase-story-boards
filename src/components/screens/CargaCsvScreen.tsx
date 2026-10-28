@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { ScadaShell } from "./ScadaShell";
 import { useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 
@@ -57,158 +58,8 @@ export function CargaCsvScreen() {
 
   }, []);
   return (
-    <div className="scada-root">
+    <ScadaShell><div className="scada-root">
 
-{/* 1. Technical SCADA Sidebar */}
-<aside className="fixed left-0 top-0 h-full w-72 bg-[#0b192c] text-slate-300 z-50 flex flex-col justify-between border-r border-[#1a2e4a] shadow-2xl">
-<div className="flex flex-col">
-{/* Brand SCADA Header */}
-<div className="h-20 px-5 flex items-center gap-3 bg-[#081220] border-b border-[#1b2b44]">
-<div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 via-blue-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20 shrink-0">
-<span className="material-symbols-outlined text-[24px]">water_drop</span>
-</div>
-<div className="flex flex-col">
-<div className="flex items-center gap-1.5">
-<span className="font-headline-md font-bold text-white tracking-tight text-[17px]">AquaSense</span>
-<span className="px-1.5 py-0.5 rounded text-[10px] font-label-mono font-bold bg-cyan-400 text-slate-950 uppercase tracking-wider">AI</span>
-</div>
-<span className="font-label-mono text-[10px] text-cyan-300/80 tracking-widest uppercase">SCADA CORE v3.4</span>
-</div>
-</div>
-{/* Active Industrial Telemetry Link HUD */}
-<div className="px-4 pt-4 pb-2">
-<div className="p-3 rounded-xl bg-[#11233d]/80 border border-cyan-500/30 flex items-center justify-between shadow-inner">
-<div className="flex items-center gap-2.5">
-<span className="relative flex h-2.5 w-2.5">
-<span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-<span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
-</span>
-<div >
-<div className="font-label-mono text-[11px] text-white font-semibold leading-tight">Datos de ejemplo</div>
-<div className="font-label-mono text-[9px] text-slate-400">Sin conexión a planta</div>
-</div>
-</div>
-<span className="font-label-mono text-[11px] font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-500/40 px-2 py-0.5 rounded">DEMO</span>
-</div>
-</div>
-{/* Navigation links: 'Carga de Datos CSV' iluminado y activo */}
-<nav className="flex flex-col gap-1.5 px-3 py-3" data-active-classes="bg-gradient-to-r from-sky-500/25 to-cyan-500/10 text-cyan-200 border-l-4 border-cyan-400 font-semibold shadow-lg shadow-cyan-950/40">
-{/* 1. Tablero de Costos y KPIs (Inactivo) */}
-<Link to="/costos" className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-[#132742] hover:text-white transition-all text-[13px] group" data-path="tablero-de-costos-y-kpis">
-<div className="flex items-center gap-3">
-<span className="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-cyan-300 transition-colors">monitoring</span>
-<span >Tablero de Costos y KPIs</span>
-</div>
-</Link>
-{/* 2. Desviaciones y Alertas (Inactivo) */}
-<Link to="/alertas" className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-[#132742] hover:text-white transition-all text-[13px] group" data-path="desviaciones-y-alertas">
-<div className="flex items-center gap-3">
-<span className="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-amber-400 transition-colors">warning</span>
-<span >Desviaciones y Alertas</span>
-</div>
-<span className="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40 font-label-mono text-[11px] font-bold">3</span>
-</Link>
-{/* 3. Recomendaciones IA (Inactivo) */}
-<Link to="/recomendaciones" className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-[#132742] hover:text-white transition-all text-[13px] group" data-path="recomendaciones-ia">
-<div className="flex items-center gap-3">
-<span className="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-cyan-300 transition-colors">auto_mode</span>
-<span >Recomendaciones IA</span>
-</div>
-</Link>
-{/* 4. Bitácora y Validación (Inactivo) */}
-<Link to="/bitacora" className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-[#132742] hover:text-white transition-all text-[13px] group" data-path="bitacora-y-validacion">
-<div className="flex items-center gap-3">
-<span className="material-symbols-outlined text-[20px] text-slate-400 group-hover:text-cyan-300 transition-colors">verified</span>
-<span >Bitácora y Validación</span>
-</div>
-</Link>
-{/* 5. Carga de Datos CSV (ACTIVO RESALTADO) */}
-<Link to="/carga-csv" className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500/25 to-cyan-500/10 text-cyan-200 border-l-4 border-cyan-400 font-semibold shadow-lg shadow-cyan-950/40 transition-all text-[13px] group" data-path="carga-de-datos-csv">
-<div className="flex items-center gap-3">
-<span className="material-symbols-outlined text-[20px] text-cyan-300" style={{"fontVariationSettings": "'FILL' 1"}}>upload_file</span>
-<span className="text-white font-semibold">Carga de Datos CSV</span>
-</div>
-<span className="px-2 py-0.5 rounded-md bg-cyan-400 text-slate-950 font-label-mono text-[10px] font-bold tracking-wider shadow-sm">ACTIVO</span>
-</Link>
-</nav>
-</div>
-{/* Sidebar Footer Card */}
-<div className="p-3.5 m-3 rounded-2xl bg-[#081220]/90 border border-[#1d3353] flex flex-col gap-2.5 shadow-xl">
-<div className="flex items-center justify-between">
-<div className="flex items-center gap-2">
-<span className="material-symbols-outlined text-cyan-400 text-[18px]">precision_manufacturing</span>
-<span className="font-label-mono text-[11px] text-slate-200 font-semibold uppercase">Auto Dosificación</span>
-</div>
-<span className="px-1.5 py-0.5 rounded font-label-mono text-[9px] bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 font-bold">AI CLOUD</span>
-</div>
-<div className="space-y-1">
-<div className="flex items-center justify-between font-label-mono text-[11px]">
-<span className="text-slate-400">Caudal Reactor</span>
-<span className="text-cyan-300 font-bold">142.8 m³/h</span>
-</div>
-<div className="w-full bg-[#162740] h-2 rounded-full overflow-hidden p-0.5 border border-[#233f66]">
-<div className="bg-gradient-to-r from-cyan-400 to-blue-500 h-full w-[72%] rounded-full shadow-[0_0_8px_rgba(6,182,212,0.8)]"></div>
-</div>
-</div>
-<div className="pt-2 border-t border-[#1a2d48] flex items-center justify-between text-[10px] font-label-mono text-slate-400">
-<span className="flex items-center gap-1">
-<span className="material-symbols-outlined text-[13px] text-slate-400">memory</span>
-        Gateway SCADA 3.4
-      </span>
-<span className="text-emerald-400 font-bold">● DATOS DE DEMO</span>
-</div>
-</div>
-</aside>
-{/* Main Wrapper */}
-<div className="pl-72">
-{/* 2. Superior Header */}
-<header className="fixed top-0 left-72 right-0 min-h-[68px] py-3.5 px-8 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs z-40 flex items-center justify-between transition-all">
-<div className="flex items-center gap-3">
-{/* Unified Plant Selector */}
-<div className="flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 transition-colors cursor-pointer shadow-xs group">
-<span className="material-symbols-outlined text-primary text-[20px]">factory</span>
-<div className="flex items-center gap-2">
-<span className="font-headline-sm text-sm font-bold text-slate-900">Planta Norte</span>
-<span className="text-slate-400 text-xs font-normal">·</span>
-<span className="text-xs font-body-md text-slate-600 font-medium">Efluente Industrial</span>
-</div>
-<span className="material-symbols-outlined text-slate-400 group-hover:text-slate-600 text-[18px] ml-1 transition-colors">expand_more</span>
-</div>
-{/* Shift Pill */}
-<div className="hidden md:flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 text-xs font-label-mono shadow-xs">
-<span className="material-symbols-outlined text-slate-400 text-[16px]">schedule</span>
-<span className="font-semibold text-slate-900">Turno B</span>
-<span className="text-slate-500 font-normal">(14:00 - 22:00)</span>
-</div>
-</div>
-{/* Right Actions */}
-<div className="flex items-center gap-3.5">
-{/* NOM Badge */}
-<div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-900 shadow-xs">
-<span className="relative flex h-2 w-2">
-<span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-<span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-</span>
-<span className="font-label-mono text-xs font-bold tracking-tight text-emerald-800">NOM-001: 99.4% (ejemplo)</span>
-</div>
-{/* Notifications */}
-<div className="relative p-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 cursor-pointer transition-colors">
-<span className="material-symbols-outlined text-[20px] block">notifications</span>
-<span className="absolute -top-1 -right-1 w-4 h-4 bg-rose-600 text-white rounded-full font-label-mono text-[9px] flex items-center justify-center font-bold shadow-xs">3</span>
-</div>
-{/* Operator Profile */}
-<div className="flex items-center gap-2.5 pl-3 border-l border-slate-200">
-<div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-700 to-cyan-600 text-white flex items-center justify-center font-bold font-label-mono text-xs shadow-sm">
-          OP
-        </div>
-<div className="flex flex-col text-left">
-<span className="text-xs font-bold text-slate-900 leading-tight">Ing. M. Romero</span>
-<span className="text-[10px] font-label-mono text-slate-500 leading-tight mt-0.5">Jefe de Operación</span>
-</div>
-</div>
-</div>
-</header>
-{/* 3. Main Content Slot */}
 <main className="w-full pt-28 pb-20 px-10 max-w-7xl mx-auto space-y-8"><div className="flex flex-col w-full">
 {/* Operational Breadcrumb & Live Banner */}
 <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
@@ -781,8 +632,7 @@ export function CargaCsvScreen() {
 </div>
 </div>
 </main>
-</div>
 
-    </div>
+    </div></ScadaShell>
   );
 }
